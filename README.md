@@ -1,7 +1,3 @@
-Certainly! Below is a README file for your Python script that generates Terraform modules using the OpenAI API, validates them, and writes the output to files.
-
----
-
 # Terraform Module Generator
 
 This Python script is a command-line tool that generates Terraform modules based on user input. It uses OpenAI's GPT model to create Terraform code, validates it, and writes it to specified files. The tool ensures that the generated Terraform module is structured correctly and provides example usage scenarios.

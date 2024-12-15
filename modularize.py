@@ -90,12 +90,12 @@ def generate_module():
 
     tf_system_prompt_2 = (
         default_system_prompt +
-        f"Your response must be in HCL format only. It will be consumed and placed directly into a .tf file."
-        f"Do not use markdown code fences (```) or any other formatting symbols. Provide only the plain Terraform code."
-        f"Include complete code for providers, resources, locals (if helpful), variables, and outputs."
-        f"Include helpful descriptions for every variable and output."
-        f"Include helpful comments with recommendations, as needed."
-        f"Make sure the code you provide is accurate and lines up with the latest Terraform version."
+        "Your response must be in HCL format only. It will be consumed and placed directly into a .tf file."
+        "Do not use markdown code fences (```) or any other formatting symbols. Provide only the plain Terraform code."
+        "Include complete code for providers, resources, locals (if helpful), variables, and outputs."
+        "Include helpful descriptions for every variable and output."
+        "Include helpful comments with recommendations, as needed."
+        "Make sure the code you provide is accurate and lines up with the latest Terraform version."
     )
 
     # Create a timestamp
@@ -140,14 +140,14 @@ def generate_module():
 
             correction_prompt = (
                 f"The following Terraform validation errors occurred: {error_message}. "
-                f"Please regenerate the Terraform code, correcting these errors. \n"
+                "Please regenerate the Terraform code, correcting these errors. \n"
             )
             # Update the prompt with error feedback for regeneration
             complete_module_prompt = correction_prompt + complete_module_content
 
     if success:
         click.echo(
-            f"Terraform module validated. Writing files...")
+            "Terraform module validated. Writing files...")
     else:
         click.echo(
             "Failed to generate a valid Terraform module after multiple attempts.\n"
@@ -156,21 +156,21 @@ def generate_module():
 
     # Generate resources section
     resources_prompt = (
-        f"Pull out and return only the providers, resources, and any locals found in this module."
+        "Pull out and return only the providers, resources, and any locals found in this module."
         f"Include the comments, but remove the variables and outputs: \n\n{complete_module_content}"
     )
     resources_content = query_model(tf_system_prompt_2, resources_prompt)
 
     # Generate variables section
     variables_prompt = (
-        f"Pull out and return only the variables found in this module."
+        "Pull out and return only the variables found in this module."
         f"Include the comments, but remove the resources, locals, and outputs: \n\n{complete_module_content}"
     )
     variables_content = query_model(tf_system_prompt_2, variables_prompt)
 
     # Generate outputs section
     outputs_prompt = (
-        f"Pull out and return only the outputs found in this module."
+        "Pull out and return only the outputs found in this module."
         f"Include the comments, but remove the resources, locals, and variables: \n\n{complete_module_content}"
     )
     outputs_content = query_model(tf_system_prompt_2, outputs_prompt)
